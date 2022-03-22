@@ -12,7 +12,7 @@ f(a, b) = a + b
 using BenchmarkTools, LinearAlgebra
 
 arr = rand(Float32, 1_000, 10)
-arr = rand(Float32, 1_000_000, 10)
+arr = rand(Float32, 100_000, 10)
 
 function f(a)
     b = a * a'
@@ -21,7 +21,7 @@ function f(a)
 end
 
 f(arr)
-@btime f(arr)
+@benchmark f(arr)
 
 function g(a::Array{Float32, 2})::Array{Float32}
     """
@@ -48,7 +48,7 @@ function g(a::Array{Float32, 2})::Array{Float32}
 end
 
 g(arr)
-@btime g(arr)
+@benchmark g(arr)
 
 
 using CUDA
@@ -78,7 +78,8 @@ function g(matrix::CuArray{Float32, 2, CUDA.Mem.DeviceBuffer})::Array{Float32}
     return Array(out)
 end
 
-arr = CUDA.rand(Float32, 1000, 10)
+arr = CUDA.rand(Float32, 100_000, 10)
 g(arr)
 
 @CUDA.time g(arr)
+

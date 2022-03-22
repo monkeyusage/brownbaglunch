@@ -1,7 +1,7 @@
 import numpy as np
 
-arr = np.random.randn(100, 10).astype(np.float32)
-# arr = np.random.randn(1_000_000, 10).astype(np.float32)
+# arr = np.random.randn(1_000, 10).astype(np.float32)
+arr = np.random.randn(100_000, 10).astype(np.float32)
 
 def f(a):
     y = a @ a.T
